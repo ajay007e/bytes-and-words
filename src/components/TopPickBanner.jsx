@@ -8,7 +8,7 @@ export default function TopPickBanner({
 }) {
   return (
     <section
-      className="relative w-full overflow-hidden rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)]"
+      className="relative w-full container mx-auto mt-4 overflow-hidden rounded-2xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)]"
       aria-label="Editor's Top Pick"
     >
       {/* Background image */}

@@ -7,7 +7,7 @@ import Carousel from "../components/Carousel";
 import BlogCard from "../components/BlogCard.jsx";
 import CategoryCard from "../components/CategoryCard.jsx";
 
-function Home() {
+export default function Story() {
   const topPickBanner = {
     title: "Velvet Whispers: A Night in Paris",
     description: "A tender, slow-burn encounter set under the Parisian moon—our editor's top pick for this week.",
@@ -171,15 +171,8 @@ function Home() {
   return (
     <div className="flex flex-col min-h-screen w-screen bg-white">
       <Navbar />
-      <TopPickBanner {...topPickBanner} />
-      <CategorySection heading="Featured">
-        <Feature blogs={blogs} />
-      </CategorySection>
-      <Carousel blogs={categories} heading="Browse by Categories" CardComponent={CategoryCard}/>
-      <Carousel blogs={additionalBlogs} heading="Romance" CardComponent={BlogCard}/>
+      {/*story-body*/}
       <Footer />
     </div>
   );
 }
-
-export default Home;
