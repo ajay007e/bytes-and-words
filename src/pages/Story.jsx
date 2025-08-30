@@ -1,177 +1,33 @@
+import { useParams, useNavigate } from "react-router";
+
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import TopPickBanner from "../components/TopPickBanner";
 import CategorySection from "../components/CategorySection";
 import Feature from "../components/Feature";
 import Carousel from "../components/Carousel";
-import BlogCard from "../components/BlogCard.jsx";
-import CategoryCard from "../components/CategoryCard.jsx";
+import BlogCard from "../components/BlogCard";
+import CategoryCard from "../components/CategoryCard";
+import Pagination from "../components/Pagination";
+import WideBlogCard from "../components/WideBlogCard";
+import StoryCard from "../components/StoryCard";
+import StoryContent from "../components/StoryContent";
+import StoryNavigation from "../components/StoryNavigation";
+
+import { getBlog, getBlogId } from "../../utils/database/database"
 
 export default function Story() {
-  const topPickBanner = {
-    title: "Velvet Whispers: A Night in Paris",
-    description: "A tender, slow-burn encounter set under the Parisian moon—our editor's top pick for this week.",
-    imageUrl: "https://images.pexels.com/photos/1001445/pexels-photo-1001445.jpeg",
-    ctaLabel: "Read",
-    href:"/posts/velvet-whispers"
-  }
-  const blogs = [
-    {
-      id: 1,
-      title: "Velvet Whispers: A Night in Paris",
-      author: "Jane Doe",
-      readTime: "6 min read",
-      description: "A tender, slow-burn encounter set under the Parisian moon—our editor's top pick for this week.",
-      imageUrl: "https://images.pexels.com/photos/3050232/pexels-photo-3050232.jpeg",
-      href: "/posts/velvet-whispers",
-    },
-    {
-      id: 2,
-      title: "Crimson Petals",
-      author: "John Smith",
-      readTime: "4 min read",
-      description: "An intimate story of longing and passion unfolding in a secret garden.",
-      imageUrl: "https://images.pexels.com/photos/285938/pexels-photo-285938.jpeg",
-      href: "/posts/crimson-petals",
-    },
-    {
-      id: 3,
-      title: "Moonlit Desire",
-      author: "Alice Brown",
-      readTime: "5 min read",
-      description: "A slow dance beneath the moonlight that awakens forgotten desires.",
-      imageUrl: "https://images.pexels.com/photos/8370720/pexels-photo-8370720.jpeg",
-      href: "/posts/moonlit-desire",
-      serirs: "Dark"
-    },
-  ];
-
-  const categories = [
-    {
-      id: 1,
-      name: "Romance",
-      description: "Love-filled stories that touch the heart.",
-      imageUrl: "https://images.pexels.com/photos/18396/pexels-photo.jpg",
-      href: "/category/romance",
-    },
-    {
-      id: 2,
-      name: "Thriller",
-      description: "Gripping tales full of suspense and mystery.",
-      imageUrl: "https://images.pexels.com/photos/11104885/pexels-photo-11104885.jpeg",
-      href: "/category/thriller",
-    },
-    {
-      id: 3,
-      name: "Fantasy",
-      description: "Enter magical worlds and epic adventures.",
-      imageUrl: "https://images.pexels.com/photos/3115525/pexels-photo-3115525.jpeg",
-      href: "/category/fantasy",
-    },
-    {
-      id: 4,
-      name: "Drama",
-      description: "Intense, emotional stories full of depth.",
-      imageUrl: "https://images.pexels.com/photos/12932543/pexels-photo-12932543.jpeg",
-      href: "/category/drama",
-    },
-    {
-      id: 5,
-      name: "Comedy",
-      description: "Lighthearted stories to make you smile.",
-      imageUrl: "https://images.pexels.com/photos/1890149/pexels-photo-1890149.jpeg",
-      href: "/category/comedy",
-    },
-    {
-      id: 6,
-      name: "Adventure",
-      description: "Exciting journeys and daring challenges.",
-      imageUrl: "https://images.pexels.com/photos/6260556/pexels-photo-6260556.jpeg",
-      href: "/category/adventure",
-    },
-  ];
-
-  const additionalBlogs = [
-    {
-      id: 1,
-      title: "The Secret Garden of Dreams",
-      author: "Amelia Clark",
-      readTime: "6 min read",
-      imageUrl: "https://images.pexels.com/photos/1700765/pexels-photo-1700765.jpeg",
-      description: "A soothing escape into nature’s hidden corners...",
-      href: "/blog/secret-garden",
-    },
-    {
-      id: 2,
-      title: "Chasing Sunsets Across the World",
-      author: "James Parker",
-      readTime: "5 min read",
-      imageUrl: "https://images.pexels.com/photos/6706946/pexels-photo-6706946.jpeg",
-      description: "A journey through the most breathtaking sunsets.",
-      href: "/blog/chasing-sunsets",
-    },
-    {
-      id: 3,
-      title: "The Forgotten Letters",
-      author: "Sophia Bennett",
-      readTime: "7 min read",
-      imageUrl: "https://images.pexels.com/photos/5988265/pexels-photo-5988265.jpeg",
-      description: "An old box of letters unravels a hidden past...",
-      href: "/blog/forgotten-letters",
-    },
-    {
-      id: 4,
-      title: "Whispers of the Ocean",
-      author: "Liam Johnson",
-      readTime: "4 min read",
-      imageUrl: "https://images.pexels.com/photos/3146245/pexels-photo-3146245.jpeg",
-      description: "Mystical stories inspired by the sea.",
-      href: "/blog/whispers-ocean",
-    },
-    {
-      id: 5,
-      title: "Midnight in the City",
-      author: "Ella Morgan",
-      readTime: "5 min read",
-      imageUrl: "https://images.pexels.com/photos/8261180/pexels-photo-8261180.jpeg",
-      description: "Discover the hidden beauty of cities after dark.",
-      href: "/blog/midnight-city",
-    },
-    {
-      id: 6,
-      title: "Echoes of the Mountains",
-      author: "Daniel Carter",
-      readTime: "8 min read",
-      imageUrl: "https://images.pexels.com/photos/6497611/pexels-photo-6497611.jpeg",
-      description: "An adventure through the peaks and valleys of life.",
-      href: "/blog/echoes-mountains",
-    },
-    {
-      id: 7,
-      title: "Dancing with Shadows",
-      author: "Isabella Reed",
-      readTime: "6 min read",
-      imageUrl: "https://images.pexels.com/photos/4759930/pexels-photo-4759930.jpeg",
-      description: "Exploring the mysteries hidden in twilight hours.",
-      href: "/blog/dancing-shadows",
-    },
-    {
-      id: 8,
-      title: "The Bookstore Café",
-      author: "Oliver Hayes",
-      readTime: "5 min read",
-      imageUrl: "https://images.pexels.com/photos/158018/surf-woman-mar-surfer-158018.jpeg",
-      description: "Where stories are brewed with every cup of coffee.",
-      href: "/blog/bookstore-cafe",
-    },
-  ];
-
-
-
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const story = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac eros quis lectus fermentum faucibus vel eu neque. Ut scelerisque pulvinar libero, ac gravida nunc mollis sit amet. Vestibulum quis turpis feugiat orci laoreet porta. Duis ornare finibus sodales. Integer gravida eros a commodo euismod. Donec convallis, enim eget pulvinar efficitur, turpis ante maximus leo, ac ultrices dolor justo vel diam. Vivamus luctus euismod magna at malesuada. Curabitur auctor urna nec enim blandit lobortis. Morbi tempus nibh nibh, vestibulum mollis justo dictum at. Vivamus finibus purus quam, et faucibus diam maximus et. Integer vehicula massa a velit euismod, sit amet imperdiet justo vestibulum. Donec ligula tortor, dapibus in ultricies sit amet, gravida at tortor. Quisque ornare ante sed tellus auctor, nec feugiat nisl ultricies. Mauris eleifend consectetur tempus. Nunc et nisi in leo volutpat vestibulum vitae vel diam. Donec maximus ullamcorper egestas. Cras dignissim dui et consequat pharetra. Aliquam eget commodo magna. Nunc mi lectus, egestas sed aliquam id, laoreet id sem. Nulla vulputate dolor lacus, vitae dignissim neque pharetra id. Nunc vitae tellus pretium, placerat mi a, commodo sapien. Sed et orci est. Vestibulum vulputate, lectus et aliquet accumsan, nulla nibh interdum nunc, id varius ex mi ac lectus. Praesent nec mauris in enim aliquam gravida sit amet quis quam. Duis dignissim finibus tristique. Nam lacus nunc, semper vel sodales eget, varius molestie arcu. Sed elementum nunc nec neque lacinia, id viverra mauris facilisis. Maecenas pellentesque dolor vel nunc faucibus venenatis. In hac habitasse platea dictumst. Fusce id est placerat, hendrerit dui vitae, tincidunt ligula. Ut at urna id augue commodo eleifend nec nec ante. Nulla bibendum libero purus, ac placerat purus scelerisque eget. Phasellus id sapien id lacus interdum luctus consequat ac mauris. Sed porttitor, eros at sollicitudin vehicula, massa justo feugiat felis, eu faucibus leo quam ut tortor. Suspendisse gravida felis et pellentesque mattis. In facilisis metus ultrices, gravida ante ut, ultricies ipsum. Aenean interdum tortor vitae interdum mollis. Sed id elit leo. Aliquam placerat, arcu a placerat scelerisque, sem lacus interdum eros, vel dignissim ex augue nec purus. Aenean dui lectus, porttitor in nulla sit amet, pharetra ultricies magna. Integer sagittis dignissim laoreet. Vestibulum vestibulum sagittis aliquam. Integer rhoncus tortor vitae cursus efficitur. Sed in nunc in eros rhoncus volutpat. Sed pellentesque quis nibh ut aliquam. Vivamus in dolor vitae tellus posuere laoreet pellentesque sed velit. Nunc ut tincidunt lectus. In leo urna, tristique quis sapien id, faucibus mattis justo. Donec tincidunt sapien eu consequat tincidunt. Aenean in varius quam, ut finibus dui. Sed cursus eget dolor sed lobortis. Fusce ac urna sed enim elementum accumsan et ac neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec facilisis elit quis auctor viverra. Etiam ut dignissim libero. Suspendisse non mi purus.";
+  const blog = getBlog(id);
+  const onNavigate = (chapter) => navigate(`/story/${getBlogId(blog.series?.id, chapter)}`);
   return (
     <div className="flex flex-col min-h-screen w-screen bg-white">
       <Navbar />
-      {/*story-body*/}
+      <StoryCard data = {blog}>
+        <StoryContent content = {story}/>
+        {blog.series && (<StoryNavigation currentChapter ={blog.series.chapter} totalChapters={blog.series.noOfChapters} onNavigate={onNavigate}/>)}
+      </StoryCard>
       <Footer />
     </div>
   );

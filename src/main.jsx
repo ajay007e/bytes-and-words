@@ -22,8 +22,8 @@ createRoot(document.getElementById('root')).render(
         </Route>
         <Route path="series">
           <Route index element={<SeriesPage/>} />
-          <Route path=":seriesId" element={<Series/>} />
-          <Route path=":seriesId/:chapter" element={<Story/>} />
+          <Route path=":name" element={<Series/>} />
+          <Route path=":name/:chapter" element={<Story/>} />
         </Route>
         <Route path="category">
           <Route index element={<CategoryPage/>} />

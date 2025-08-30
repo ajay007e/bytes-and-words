@@ -10,9 +10,9 @@ export default function Navbar() {
 
         {/* Navigation Links */}
         <div className="space-x-6 hidden md:flex">
-          <Link to="/" className="hover:text-gray-200">Home</Link>
-          <Link to="/about" className="hover:text-gray-200">About</Link>
-          <Link to="/contact" className="hover:text-gray-200">Contact</Link>
+          <Link to="/category" className="hover:text-gray-200">Category</Link>
+          <Link to="/story" className="hover:text-gray-200">Story</Link>
+          <Link to="/series" className="hover:text-gray-200">Series</Link>
         </div>
 
         {/* Mobile Menu (optional) */}

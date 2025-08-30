@@ -17,7 +17,7 @@ export default function BlogCard({card}) {
         <div className="absolute bottom-0 w-full p-4 text-white transition-opacity duration-300 group-hover:opacity-0">
           <h2 className="text-lg font-bold leading-tight">{card.title}</h2>
           <p className="text-sm text-white/80">
-            By {card.author} · {card.readTime}
+            By {card.author ? card.author : card.authors.join(",")} · {card.readTime ? card.readTime : `${card.noOfChapters} chapters`}
           </p>
         </div>
 
