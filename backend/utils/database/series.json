@@ -1,0 +1,54 @@
+[
+  {
+    "id": "series-desire",
+    "title": "Desire",
+    "authors": ["Jane Doe"],
+    "noOfChapters": 3,
+    "imageUrl": "https://images.pexels.com/photos/3050232/pexels-photo-3050232.jpeg",
+    "description": "A passionate tale of longing, hidden promises, and flames of love set under Parisian skies.",
+    "href": "/series/Desire",
+    "categories": ["Romance", "Drama"],
+    "upvotes": 344,
+    "downvotes": 23,
+    "rating": 4.6
+  },
+  {
+    "id": "series-eternal",
+    "title": "Eternal",
+    "authors": ["Daniel Carter"],
+    "noOfChapters": 4,
+    "imageUrl": "https://images.pexels.com/photos/381739/pexels-photo-381739.jpeg",
+    "description": "A legendary journey of friendship, fire, frost, and eternal destiny.",
+    "href": "/series/Eternal",
+    "categories": ["Adventure", "Fantasy", "Drama"],
+    "upvotes": 500,
+    "downvotes": 32,
+    "rating": 4.6
+  },
+  {
+    "id": "series-dark",
+    "title": "Dark",
+    "authors": ["Alice Brown"],
+    "noOfChapters": 1,
+    "imageUrl": "https://images.pexels.com/photos/8370720/pexels-photo-8370720.jpeg",
+    "description": "A single but powerful chapter of forgotten desires under the moonlight.",
+    "href": "/series/Dark",
+    "categories": ["Drama", "Romance"],
+    "upvotes": 142,
+    "downvotes": 12,
+    "rating": 4.3
+  },
+  {
+    "id": "series-confessions",
+    "title": "Confessions",
+    "authors": ["Anonymous"],
+    "noOfChapters": 1,
+    "imageUrl": "https://images.pexels.com/photos/532563/pexels-photo-532563.jpeg",
+    "description": "A heartfelt anthology where each chapter unveils a new confession — of love, secrets, regrets, and redemption.",
+    "href": "/series/Confession",
+    "categories": ["Romance", "Drama"],
+    "upvotes": 215,
+    "downvotes": 18,
+    "rating": 4.6
+  }
+]

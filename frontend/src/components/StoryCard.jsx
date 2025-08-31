@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function StoryCard({ data, children }) {
   const [upvotes, setUpvotes] = useState(data.upvotes);
@@ -8,6 +8,14 @@ export default function StoryCard({ data, children }) {
   const handleUpvote = () => setUpvotes(upvotes + 1);
   const handleDownvote = () => setDownvotes(downvotes + 1);
   const handleRating = (newRating) => setRating(newRating);
+
+  useEffect(() => {
+    if (data) {
+      setUpvotes(data.upvotes || 0);
+      setDownvotes(data.downvotes || 0);
+      setRating(data.rating || 0);
+    }
+  }, [data]);
 
   return (
     <article className="container mx-auto mt-12 px-8 rounded-b-2xl overflow-hidden shadow-lg bg-white">
@@ -80,7 +88,7 @@ export default function StoryCard({ data, children }) {
                 </button>
               ))}
               <span className="ml-2 text-sm text-gray-600">
-                ({rating.toFixed(1)})
+                ({rating?.toFixed(1)})
               </span>
             </div>
           </div>

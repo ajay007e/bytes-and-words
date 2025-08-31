@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Romance",
+    "description": "Love-filled stories that touch the heart.",
+    "imageUrl": "https://images.pexels.com/photos/18396/pexels-photo.jpg",
+    "href": "/category/Romance"
+  },
+  {
+    "id": 2,
+    "name": "Thriller",
+    "description": "Gripping tales full of suspense and mystery.",
+    "imageUrl": "https://images.pexels.com/photos/11104885/pexels-photo-11104885.jpeg",
+    "href": "/category/Thriller"
+  },
+  {
+    "id": 3,
+    "name": "Fantasy",
+    "description": "Enter magical worlds and epic adventures.",
+    "imageUrl": "https://images.pexels.com/photos/3115525/pexels-photo-3115525.jpeg",
+    "href": "/category/Fantasy"
+  },
+  {
+    "id": 4,
+    "name": "Drama",
+    "description": "Intense, emotional stories full of depth.",
+    "imageUrl": "https://images.pexels.com/photos/12932543/pexels-photo-12932543.jpeg",
+    "href": "/category/Drama"
+  },
+  {
+    "id": 5,
+    "name": "Comedy",
+    "description": "Lighthearted stories to make you smile.",
+    "imageUrl": "https://images.pexels.com/photos/1890149/pexels-photo-1890149.jpeg",
+    "href": "/category/Comedy"
+  },
+  {
+    "id": 6,
+    "name": "Adventure",
+    "description": "Exciting journeys and daring challenges.",
+    "imageUrl": "https://images.pexels.com/photos/6260556/pexels-photo-6260556.jpeg",
+    "href": "/category/Adventure"
+  }
+]
