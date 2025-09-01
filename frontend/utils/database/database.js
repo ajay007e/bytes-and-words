@@ -34,3 +34,4 @@ export const getSeriesByName = (name) => get(`/series/id/${name}`);
 
 export const getFeaturedSeries = () => get("/series/f");
 
+export const getDashboardStats = () => get("/admin/stats");

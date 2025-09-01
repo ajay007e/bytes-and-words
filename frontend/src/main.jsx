@@ -10,6 +10,7 @@ import SeriesPage from "./pages/SeriesPage";
 import Series from "./pages/Series";
 import CategoryPage from "./pages/CategoryPage";
 import Category from "./pages/Category";
+import Dashboard from "./pages/Dashboard";
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -28,6 +29,9 @@ createRoot(document.getElementById('root')).render(
         <Route path="category">
           <Route index element={<CategoryPage/>} />
           <Route path=":category" element={<Category/>} />
+        </Route>
+        <Route path="admin">
+          <Route index element={<Dashboard/>}/>
         </Route>
       </Routes>
     </StrictMode>
