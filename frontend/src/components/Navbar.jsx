@@ -1,21 +1,27 @@
 import { Link } from "react-router";
 
-export default function Navbar() {
+export default function Navbar({ isAdmin = false }) {
   return (
     <nav className="text-white px-6 py-4 shadow-lg bg-pink-900">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold">
+        {/* Title */}
+        <Link
+          to={isAdmin ? "/admin" : "/"}
+          className="text-2xl font-bold"
+        >
           Literotica
         </Link>
 
-        {/* Navigation Links */}
-        <div className="space-x-6 hidden md:flex">
-          <Link to="/category" className="hover:text-gray-200">Category</Link>
-          <Link to="/story" className="hover:text-gray-200">Story</Link>
-          <Link to="/series" className="hover:text-gray-200">Series</Link>
-        </div>
+        {/* Navigation Links (hidden for admin) */}
+        {!isAdmin && (
+          <div className="space-x-6 hidden md:flex">
+            <Link to="/category" className="hover:text-gray-200">Category</Link>
+            <Link to="/story" className="hover:text-gray-200">Story</Link>
+            <Link to="/series" className="hover:text-gray-200">Series</Link>
+          </div>
+        )}
 
-        {/* Mobile Menu (optional) */}
+        {/* Mobile Menu (optional, still shown for both cases) */}
         <button className="md:hidden px-3 py-2 border rounded">
           ☰
         </button>

@@ -11,6 +11,11 @@ import Series from "./pages/Series";
 import CategoryPage from "./pages/CategoryPage";
 import Category from "./pages/Category";
 import Dashboard from "./pages/Dashboard";
+import AdminStoryPreview from "./pages/AdminStoryPreview";
+import AdminSeriesPreview from "./pages/AdminSeriesPreview";
+import AdminCategoryPreview from "./pages/AdminCategoryPreview";
+import AdminStoryCreate from "./pages/AdminStoryCreate";
+import AdminStoryEdit from "./pages/AdminStoryEdit";
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -30,9 +35,12 @@ createRoot(document.getElementById('root')).render(
           <Route index element={<CategoryPage/>} />
           <Route path=":category" element={<Category/>} />
         </Route>
-        <Route path="admin">
-          <Route index element={<Dashboard/>}/>
-        </Route>
+        <Route path="admin/*" element={<Dashboard/>}/>
+        <Route path="admin/st/:id" element={<AdminStoryPreview/>} />
+        <Route path="admin/story/c" element={<AdminStoryCreate/>} />
+        <Route path="admin/story/e/:id" element={<AdminStoryEdit/>} />
+        <Route path="admin/sr/:id" element={<AdminSeriesPreview/>} />
+        <Route path="admin/ct/:id" element={<AdminCategoryPreview/>} />
       </Routes>
     </StrictMode>
   </BrowserRouter>,

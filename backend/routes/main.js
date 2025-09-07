@@ -9,6 +9,13 @@ router.get("/categories", (req, res, nxt) => {
       .catch(err => res.json([]));
 });
 
+router.get("/categories/i/:id", async (req, res, nxt) => {
+    const { id } = req.params;
+    getCategoryById(id)
+      .then(data => res.json(data))
+      .catch(err => res.json([]))
+});
+
 
 router.get("/stories", (req, res, nxt) => {
     getStories()
@@ -51,16 +58,20 @@ router.get("/series", (req, res, nxt) => {
       .catch(err => res.json([]));
 });
 
-router.get("/series/n/:name", async (req, res, nxt) => {
+router.get("/stories/n/:name", async (req, res, nxt) => {
     const { name } = req.params;
     res.json(await getStoriesBySeriesName(name))
 });
 
-router.get("/series/id/:name", async (req, res, nxt) => {
+router.get("/series/n/:name", async (req, res, nxt) => {
     const { name } = req.params;
     res.json(await getSeriesByName(name)); 
 });
 
+router.get("/series/i/:id", async (req, res, nxt) => {
+    const { id } = req.params;
+    res.json(await getSeriesById(id)); 
+});
 
 router.get("/series/f", async (req, res, nxt) => {
     res.json(await getFeaturedSeries());
@@ -143,5 +154,14 @@ const getStoryIdBySeriesInfo = (id, chapter) => {
     });
 };
 
+const getSeriesById = (id) => {
+  return getSeries()
+    .then(data => data.find(item => item.id === Number(id)));
+}
+
+const getCategoryById = (id) => {
+  return getCategories()
+    .then(data => data.find(item => item.id === Number(id)));
+}
 
 module.exports = router;

@@ -45,7 +45,7 @@ export default function Pagination({ data, itemsPerPage = 5, headingRequired = t
       <div className="flex justify-center gap-2">
         {/* First */}
         <button
-          className="px-3 py-1 rounded-md border bg-gray-400 hover:bg-gray-500 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+          className="px-3 py-1 rounded-md bg-gray-400 hover:bg-gray-500 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
           onClick={() => changePage(1)}
           disabled={currentPage === 1}
         >
@@ -54,7 +54,7 @@ export default function Pagination({ data, itemsPerPage = 5, headingRequired = t
 
         {/* Prev */}
         <button
-          className="px-3 py-1 rounded-md border bg-gray-400 hover:bg-gray-500 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+          className="px-3 py-1 rounded-md bg-gray-400 hover:bg-gray-500 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
           onClick={() => changePage(currentPage - 1)}
           disabled={currentPage === 1}
         >
@@ -66,7 +66,7 @@ export default function Pagination({ data, itemsPerPage = 5, headingRequired = t
           <button
             key={num}
             onClick={() => changePage(num)}
-            className={`px-3 py-1 rounded-md border cursor-pointer ${
+            className={`px-3 py-1 rounded-md cursor-pointer ${
               currentPage === num
                 ? "bg-gray-700 text-white font-bold"
                 : "bg-gray-400 hover:bg-gray-500"
@@ -78,7 +78,7 @@ export default function Pagination({ data, itemsPerPage = 5, headingRequired = t
 
         {/* Next */}
         <button
-          className="px-3 py-1 rounded-md border bg-gray-400 hover:bg-gray-500 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+          className="px-3 py-1 rounded-md bg-gray-400 hover:bg-gray-500 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
           onClick={() => changePage(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
@@ -87,7 +87,7 @@ export default function Pagination({ data, itemsPerPage = 5, headingRequired = t
 
         {/* Last */}
         <button
-          className="px-3 py-1 rounded-md border bg-gray-400 hover:bg-gray-500 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+          className="px-3 py-1 rounded-md bg-gray-400 hover:bg-gray-500 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
           onClick={() => changePage(totalPages)}
           disabled={currentPage === totalPages}
         >

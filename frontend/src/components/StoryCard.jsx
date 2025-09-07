@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { Edit, Trash2 } from "lucide-react";
 
-export default function StoryCard({ data, children }) {
+export default function StoryCard({ data, onEdit, onDelete, isAdmin = false, children }) {
   const [upvotes, setUpvotes] = useState(data.upvotes);
   const [downvotes, setDownvotes] = useState(data.downvotes);
   const [rating, setRating] = useState(data.rating);
@@ -27,21 +28,47 @@ export default function StoryCard({ data, children }) {
 
       {/* Content */}
       <div className="p-6">
-        {/* Title */}
-        <h1 className="text-3xl font-bold text-gray-900 mb-3">
-          {data.title}
-        </h1>
+        {/* Title + Action Buttons */}
+        <div className="flex items-start justify-between mb-3">
+          <h1 className="text-3xl font-bold text-gray-900">{data.title}</h1>
+          
+          {isAdmin && (
+            <div className="flex gap-2">
+              <button
+                onClick={() => onEdit && onEdit(data)}
+                className="p-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                title="Edit"
+              >
+                <Edit size={20} />
+              </button>
+              <button
+                onClick={() => onDelete && onDelete(data)}
+                className="p-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                title="Delete"
+              >
+                <Trash2 size={20} />
+              </button>
+            </div>
+          )}
+        </div>
 
         {/* Categories */}
         <div className="flex flex-wrap gap-2 mb-4">
           {data.categories?.map((cat, i) => (
             <span
               key={i}
-              className="px-2 py-1 text-xs font-medium bg-gray-200 text-gray-700 rounded-lg"
+              className="px-2 py-1 text-sm font-medium bg-gray-200 text-gray-700 rounded-lg"
             >
               {cat}
             </span>
           ))}
+
+          {/* Series */}
+          {data.series && (
+            <span className="bg-pink-200 text-pink-900 px-2 py-1 rounded-full font-medium text-sm">
+              {data.series.title}
+            </span>
+          )}
         </div>
 
         {/* Description */}
@@ -93,6 +120,7 @@ export default function StoryCard({ data, children }) {
             </div>
           </div>
         </div>
+
         {children && <div className="mt-6">{children}</div>}
       </div>
     </article>

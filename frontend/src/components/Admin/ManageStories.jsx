@@ -11,7 +11,6 @@ export default function ManageStories() {
     const fetchData = async () => {
       try {
         const _stories = await getStories();
-        console.log(_stories)
         setStories(_stories);
 
       } catch (err) {
@@ -30,17 +29,22 @@ export default function ManageStories() {
       {/* Heading */}
       <h1 className="text-3xl font-bold mb-6 text-gray-900">Manage Stories</h1>
 
-      {/* Search Bar */}
-      <div className="mb-4">
+      <div className="mb-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
         <input
           type="text"
-          placeholder="Search stories..."
+          placeholder="Search categories..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full md:w-1/2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none text-gray-800"
+          className="w-full md:w-1/2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-400 focus:outline-none text-gray-800"
         />
+        
+        <Link
+          to="/admin/story/c"
+          className="px-4 py-2 bg-pink-600 text-white rounded-lg shadow-sm hover:bg-pink-700 transition text-sm font-medium"
+        >
+          + Create Story
+        </Link>
       </div>
-
       {/* TODO: last item in the table not completely visible */}
       <div className="flex-1 bg-white rounded-xl shadow-lg overflow-hidden">
         <div className="overflow-y-auto max-h-[calc(100vh-220px)] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
@@ -61,7 +65,7 @@ export default function ManageStories() {
                   } hover:bg-pink-100 transition`}
                 >
                   <td className="p-4 text-gray-800">
-                    <Link to={`/admin/story/${s.id}`}>
+                    <Link to={`/admin/st/${s.id}`}>
                       {s.title}
                       {s.series && (<span className="ml-4 px-3 py-1 bg-cyan-200 text-cyan-900 text-xs font-medium rounded-full">{s.series.title}</span>)}
                     </Link>

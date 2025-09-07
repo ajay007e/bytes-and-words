@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useLocation } from "react-router";
+
 import Sidebar from "../components/Admin/Sidebar";
 import DashboardInfo from "../components/Admin/DashboardInfo";
 import ManageStories from "../components/Admin/ManageStories";
@@ -8,21 +10,22 @@ import Ads from "../components/Admin/ManageAds";
 import Settings from "../components/Admin/Settings";
 
 export default function Dashboard() {
-  const [active, setActive] = useState("Dashboard Info");
+  const location = useLocation();
+  const [active, setActive] = useState(location.pathname);
 
   const renderContent = () => {
     switch (active) {
-      case "Dashboard":
+      case "/admin":
         return <DashboardInfo />;
-      case "Manage Stories":
+      case "/admin/story":
         return <ManageStories />;
-      case "Manage Series":
+      case "/admin/series":
         return <ManageSeries />;
-      case "Manage Categories":
+      case "/admin/category":
         return <ManageCategories />;
-      case "Manage Ads":
+      case "/admin/ads":
         return <Ads />;
-      case "Settings":
+      case "/admin/settings":
         return <Settings />;
       default:
         return <DashboardInfo />;
