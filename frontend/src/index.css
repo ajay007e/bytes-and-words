@@ -38,3 +38,31 @@ body {
           scrollbar-width: none;  /* Firefox */
     }
   }
+
+
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+.story-content::-webkit-scrollbar {
+  width: 8px;             /* width of the scrollbar */
+}
+
+.story-content::-webkit-scrollbar-track {
+  background: #f0f0f0;    /* background of the scrollbar track */
+  border-radius: 4px;
+}
+
+.story-content::-webkit-scrollbar-thumb {
+  background-color: #ec4899;  /* pink scrollbar thumb */
+  border-radius: 4px;
+  border: 2px solid #f0f0f0;  /* creates padding around thumb */
+}
+
+.story-content::-webkit-scrollbar-thumb:hover {
+  background-color: #db2777; /* darker on hover */
+}
+
+/* Firefox */
+.story-content {
+  scrollbar-width: thin;
+  scrollbar-color: #ec4899 #f0f0f0; /* thumb color | track color */
+}

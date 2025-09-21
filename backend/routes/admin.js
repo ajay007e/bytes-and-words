@@ -182,6 +182,26 @@ router.post("/d/sts/:id", async (req, res, nxt) => {
   }
 });
 
+router.post("/e/sts/:id", async (req, res, nxt) => {
+  const { id } = req.params;
+  const data = req.body;
+  console.log(data)
+  try {
+    validateStoryData(data);
+    validateId(id, data.id);
+    data = {
+      ...data,
+      "readTime": getReadingTime(data.content),
+    }
+    const story = updateStory(id, data);
+    res.status(200).json({staus: "Success", message: "Story updated", story});
+  } catch (err) {
+    nxt(err);
+  }
+});
+
+
+
 const updateSeriesWithNewStory = async (story) => {
   if (!story.isPartOfSeries) return;
   const seriesId = story.series;
@@ -232,7 +252,7 @@ const validateStoryData = (data) => {
     err.status = 400;
     throw err;
   }
-  if (!data.categories || data.cateogires.length === 0) {
+  if (!data.categories || data.categories.length === 0) {
     const err = new Error("Categories required");
     err.status = 400;
     throw err;

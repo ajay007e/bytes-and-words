@@ -14,7 +14,6 @@ import { getEditorsPick, getFeaturedStories, getStoriesByCategory, getCategories
 function Home() {
   const [editorsPick, setEditorsPick] = useState([]);
   const [featuredStories, setFeaturedStories] = useState([]);
-  const [romanceStories, setRomanceStories] = useState([]);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -28,9 +27,6 @@ function Home() {
 
         const _featuredStories = await getFeaturedStories();
         setFeaturedStories(_featuredStories);
-
-        const _romanceStories = await getStoriesByCategory('Romance');
-        setRomanceStories(_romanceStories);
 
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -47,7 +43,7 @@ function Home() {
         <Feature blogs={ featuredStories } />
       </CategorySection>
       <Carousel blogs={ categories } heading="Browse by Categories" CardComponent={CategoryCard}/>
-      <Carousel blogs={ romanceStories } heading="Romance" CardComponent={BlogCard}/>
+      {/*<Carousel blogs={ romanceStories } heading="Romance" CardComponent={BlogCard}/>*/}
       <Footer />
     </div>
   );

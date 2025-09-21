@@ -1,45 +1,43 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { ImageIcon } from "lucide-react";
-
+import StoryPreview from "../components/Admin/StoryPreview";
 import Navbar from "../components/Navbar";
+import CreateStory from "../components/Admin/StoryUpdate";
 import Footer from "../components/Footer";
 
-import { createStory, getDataOptions } from "../../utils/database/database";
+import { getDataOptions, createStory } from "../../utils/database/database";
 
-export default function CreateStoryForm() {
-  const [step, setStep] = useState(1);
+export default function Story({data = {}}) {
   const [form, setForm] = useState({
-    title: "",
-    description: "",
-    author: null,
-    imageUrl: "",
-    categories: [],
-    content: "",
-    isPartOfSeries: false,
-    series: null,
+    title: data.title || "",
+    description: data.description || "",
+    author: data.author || null,
+    imageUrl: data.imageUrl || "",
+    categories: data.categories || [],
+    series: data.series || null,
+    isPartOfSeries: data.isPartOfSeries || false,
+    content: data.content || "",
   });
+
+  const navigate = useNavigate();
 
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [seriesOptions, setSeriesOptions] = useState([]);
   const [authorOptions, setAuthorOptions] = useState([]);
+  const [step, setStep] = useState(1); // Step control
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const _options = await getDataOptions();
-        setCategoryOptions(_options?.categories);
-        setSeriesOptions(_options?.series);
-        setAuthorOptions(_options?.authors);
-        console.log(_options)
-      } catch (err) {
-        console.error("Error fetching data:", err);
-      }
+      const _options = await getDataOptions();
+      setCategoryOptions(_options?.categories || []);
+      setSeriesOptions(_options?.series || []);
+      setAuthorOptions(_options?.authors || []);
     };
-    fetchData();  
+    fetchData();
   }, []);
-  
 
   const handleChange = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -47,238 +45,144 @@ export default function CreateStoryForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await createStory(form);
-    console.log(response);
+    const story = {
+      ...form,
+      author: form.author.value,
+      categories: form.categories.map(c => c.label)
+    }
+    await createStory(story);
+    alert("Story created!");
+    navigate("/admin/story");
   };
 
-  const handleNext = () => setStep((prev) => prev + 1);
-  const handleBack = () => setStep((prev) => prev - 1);
+  return (
+    <div className="flex flex-col w-screen min-h-screen bg-gray-50 text-black">
+      <Navbar isAdmin={true} />
+      <CreateStory/>      
+      <Footer/>
+    </div>
+  );
+}
+
+
+
+export function MarkdownSyntaxInfo({ float = false }) {
+  const [open, setOpen] = useState(false);
+
+  const examples = [
+    { label: "Heading 1", code: "# This is Heading 1" },
+    { label: "Heading 2", code: "## This is Heading 2" },
+    { label: "Heading 3", code: "### This is Heading 3" },
+    { label: "Paragraph", code: "This is a normal paragraph." },
+    { label: "Bold", code: "**This text is bold**" },
+    { label: "Italic", code: "_This text is italic_" },
+    { label: "Link", code: "[Click here](https://example.com)" },
+    { label: "Image", code: "![Alt text](https://placekitten.com/200/200)" },
+  ];
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  const copyToClipboard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      // small visual feedback — replace with your toast if you have one
+      // (this alert is minimal to keep the component self-contained)
+      alert("Copied to clipboard");
+    } catch {
+      alert("Unable to copy");
+    }
+  };
+
+  // wrapper classes: either pinned or full-width container that right-aligns content
+  const wrapperClass = float
+    ? "fixed top-4 right-4 z-50"
+    : "w-full flex justify-end";
 
   return (
-    <div className="flex flex-col w-screen min-h-screen bg-pink-50 text-black">
-      <Navbar isAdmin={true}/>
-
-      <div className="flex-1 flex items-center justify-center p-6">
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col w-full max-w-3xl bg-white shadow-lg rounded-xl overflow-hidden"
+    <div className={wrapperClass}>
+      {/* minimal subtle button */}
+      <p
+        onClick={() => setOpen(true)}
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        className="inline-flex items-center cursor-pointer gap-2 px-2 py-1 rounded-md text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-blue-300"
+        title="Show Markdown syntax"
+      >
+        {/* subtle info icon */}
+        <svg
+          className="w-4 h-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
         >
-          {/* Header */}
-          <div className="px-6 py-4 border-b bg-pink-100 flex justify-between items-center">
-            <h2 className="text-xl font-bold text-gray-800">
-              {step === 1 ? "Step 1: Basic Details" : "Step 2: Additional Info"}
-            </h2>
-            <p className="text-sm text-gray-600">
-              Step {step} of 2
-            </p>
-          </div>
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="16" x2="12" y2="12" />
+          <line x1="12" y1="8" x2="12.01" y2="8" />
+        </svg>
+        <span className="sr-only">Show Markdown syntax</span>
+        {/* small visible label, subtle */}
+        <span className="hidden sm:inline">Markdown</span>
+      </p>
 
-          {/* Step Content */}
-          <div className="flex-1 overflow-y-auto px-6 py-4 space-y-6 
-            [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
-            
-            {step === 1 && (
-              <>
-                {/* Title */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Title
-                  </label>
-                  <input
-                    type="text"
-                    value={form.title}
-                    onChange={(e) => handleChange("title", e.target.value)}
-                    className="w-full p-3 border border-gray-400 rounded-lg focus:ring-2 focus:ring-pink-400 focus:outline-none text-gray-900"
-                  />
-                </div>
+      {/* Modal */}
+      {open && (
+        <div
+          className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 px-4"
+          onClick={() => setOpen(false)} // close on outside click
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Markdown syntax"
+            className="bg-white rounded-lg shadow-lg p-6 max-w-lg w-full relative"
+            onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
+          >
+            {/* close button */}
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute cursor-pointer top-3 right-3 text-gray-500 hover:text-black text-xl p-1 rounded focus:outline-none"
+              aria-label="Close"
+            >
+              &times;
+            </button>
 
-                {/* Description */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Description
-                  </label>
-                  <input
-                    type="text"
-                    value={form.description}
-                    onChange={(e) => handleChange("description", e.target.value)}
-                    className="w-full p-3 border border-gray-400 rounded-lg focus:ring-2 focus:ring-pink-400 focus:outline-none text-gray-900"
-                  />
-                </div>
+            <h2 className="text-lg font-semibold mb-3">Markdown Syntax</h2>
 
-                {/* Content */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Content
-                  </label>
-                  <textarea
-                    rows={6}
-                    value={form.content}
-                    onChange={(e) => handleChange("content", e.target.value)}
-                    className="w-full p-3 border border-gray-400 rounded-lg focus:ring-2 focus:ring-pink-400 focus:outline-none text-gray-900"
-                  />
-                </div>
-              </>
-            )}
-
-            {step === 2 && (
-              <>
-                {/* Author */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Author
-                  </label>
-                  <CreatableSelect
-                    isClearable
-                    options={authorOptions}
-                    value={form.author}
-                    onChange={(val) => handleChange("author", val)}
-                    placeholder="Select or create an author..."
-                    className="react-select-container"
-                    classNamePrefix="react-select"
-                  />
-                </div>
-
-
-                {/* Categories */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Categories
-                  </label>
-                  <Select
-                    isMulti
-                    options={categoryOptions}
-                    value={form.categories}
-                    onChange={(val) => handleChange("categories", val)}
-                    placeholder="Select categories..."
-                    className="react-select-container"
-                    classNamePrefix="react-select"
-                  />
-                </div>
-
-                {/* Is Part of Series */}
-                <div className="flex items-center gap-3">
-                  <input
-                    type="checkbox"
-                    checked={form.isPartOfSeries}
-                    onChange={(e) => handleChange("isPartOfSeries", e.target.checked)}
-                    className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded"
-                  />
-                  <label className="text-sm font-medium text-gray-700">
-                    Is part of a series?
-                  </label>
-                </div>
-
-                {/* Series Details */}
-                {form.isPartOfSeries && (
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Series
-                      </label>
-                      <Select
-                        options={seriesOptions}
-                        value={form.series}
-                        onChange={(val) => handleChange("series", val)}
-                        placeholder="Select series..."
-                        className="react-select-container"
-                        classNamePrefix="react-select"
-                      />
-                    </div>
+            <ul className="space-y-3">
+              {examples.map((ex, idx) => (
+                <li
+                  key={idx}
+                  className="flex items-start justify-between bg-gray-50 p-3 rounded border border-gray-100"
+                >
+                  <div>
+                    <div className="text-sm font-medium text-gray-800">{ex.label}</div>
+                    <code className="block text-xs text-gray-600 mt-1">{ex.code}</code>
                   </div>
-                )}
-
-                {/* Image URL + Preview */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Image URL
-                  </label>
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="text"
-                      value={form.imageUrl}
-                      onChange={(e) => handleChange("imageUrl", e.target.value)}
-                      className="flex-1 p-3 border border-gray-400 rounded-lg focus:ring-2 focus:ring-pink-400 focus:outline-none text-gray-900"
-                    />
-                    <div className="w-12 h-12 flex items-center justify-center border rounded-lg bg-gray-50 overflow-hidden">
-                      {form.imageUrl ? (
-                        <img
-                          src={form.imageUrl}
-                          alt="Preview"
-                          className="w-full h-full object-cover hover:scale-125 transition-transform"
-                        />
-                      ) : (
-                        <ImageIcon className="text-gray-400" />
-                      )}
-                    </div>
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => copyToClipboard(ex.code)}
+                      className="ml-4 px-2 py-1 cursor-pointer bg-blue-500 text-white text-xs rounded hover:bg-blue-600 transition"
+                    >
+                      Copy
+                    </button>
                   </div>
-                </div>
-
-              </>
-
-            )}
+                </li>
+              ))}
+            </ul>
           </div>
-
-          {/* Footer */}
-          <div className="px-6 py-4 border-t bg-gray-50 flex justify-between">
-            {step > 1 && (
-              <button
-                type="button"
-                onClick={handleBack}
-                className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
-              >
-                Back
-              </button>
-            )}
-            <div className="flex gap-3 ml-auto">
-              <button
-                type="button"
-                onClick={() =>
-                  setForm({
-                    title: "",
-                    description: "",
-                    author: null,
-                    imageUrl: "",
-                    categories: [],
-                    content: "",
-                    isPartOfSeries: false,
-                    series: null,
-                    chapter: null,
-                  })
-                }
-                className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
-              >
-                Reset
-              </button>
-
-              {/* Save Draft */}
-              <button
-                  type="button"
-                  onClick={() => console.log("Draft saved", form)}
-                  className="px-4 py-2 bg-purple-400 text-white rounded hover:bg-purple-500"
-                >
-                  Save Draft
-              </button>
-              {step < 2 ? (
-                <button
-                  type="button"
-                  onClick={handleNext}
-                  className="px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700"
-                >
-                  Next
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700"
-                >
-                  Publish Story
-                </button>
-              )}
-            </div>
-          </div>
-        </form>
-      </div>
-      <Footer />
+        </div>
+      )}
     </div>
   );
 }
