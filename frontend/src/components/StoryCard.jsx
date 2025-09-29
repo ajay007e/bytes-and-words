@@ -36,14 +36,14 @@ export default function StoryCard({ data, onEdit, onDelete, isAdmin = false, chi
             <div className="flex gap-2">
               <button
                 onClick={() => onEdit && onEdit(data)}
-                className="p-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                className="p-2 cursor-pointer bg-green-600 text-white rounded-lg hover:bg-green-700"
                 title="Edit"
               >
                 <Edit size={20} />
               </button>
               <button
                 onClick={() => onDelete && onDelete(data)}
-                className="p-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                className="p-2 bg-red-600 cursor-pointer text-white rounded-lg hover:bg-red-700"
                 title="Delete"
               >
                 <Trash2 size={20} />

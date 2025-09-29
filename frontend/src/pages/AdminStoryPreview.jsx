@@ -32,9 +32,6 @@ export default function StoryPreview() {
   return (
     <div className="flex flex-col w-screen min-h-screen bg-pink-50 text-black">
       <Navbar isAdmin={true}/>
-
-      {}
-
       {/* Modal */}
       {isEditing ? (
         <UpdateStory data={story} isUpdate={true}/>

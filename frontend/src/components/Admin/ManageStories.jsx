@@ -35,11 +35,11 @@ export default function ManageStories() {
           placeholder="Search categories..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full md:w-1/2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-400 focus:outline-none text-gray-800"
+          className="w-full md:w-1/2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none text-gray-800"
         />
         
         <Link
-          to="/admin/story/c"
+          to="/admin/st/c"
           className="px-4 py-2 bg-pink-600 text-white rounded-lg shadow-sm hover:bg-pink-700 transition text-sm font-medium"
         >
           + Create Story

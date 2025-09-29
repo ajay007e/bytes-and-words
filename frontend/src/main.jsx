@@ -15,7 +15,6 @@ import AdminStoryPreview from "./pages/AdminStoryPreview";
 import AdminSeriesPreview from "./pages/AdminSeriesPreview";
 import AdminCategoryPreview from "./pages/AdminCategoryPreview";
 import AdminStoryCreate from "./pages/AdminStoryCreate";
-import AdminStoryEdit from "./pages/AdminStoryEdit";
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -37,8 +36,7 @@ createRoot(document.getElementById('root')).render(
         </Route>
         <Route path="admin/*" element={<Dashboard/>}/>
         <Route path="admin/st/:id" element={<AdminStoryPreview/>} />
-        <Route path="admin/story/c" element={<AdminStoryCreate/>} />
-        <Route path="admin/story/e/:id" element={<AdminStoryEdit/>} />
+        <Route path="admin/st/c" element={<AdminStoryCreate/>} />
         <Route path="admin/sr/:id" element={<AdminSeriesPreview/>} />
         <Route path="admin/ct/:id" element={<AdminCategoryPreview/>} />
       </Routes>

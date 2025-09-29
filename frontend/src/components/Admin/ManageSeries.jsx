@@ -52,7 +52,7 @@ export default function ManageSeries() {
           placeholder="Search categories..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full md:w-1/2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-400 focus:outline-none text-gray-800"
+          className="w-full md:w-1/2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none text-gray-800"
         />
         
         <button
@@ -210,7 +210,7 @@ export default function ManageSeries() {
               <div className="flex justify-end gap-3 border-t border-gray-300 px-6 py-4">
                 <button
                   onClick={handleSave}
-                  className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                  className="cursor-pointer px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
                 >
                   Create
                 </button>

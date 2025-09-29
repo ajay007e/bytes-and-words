@@ -12,7 +12,7 @@ export default function StoryPage({ data }) {
   } = data;
 
   return (
-    <div className="flex flex-col max-h-[calc(70vh)]"> 
+    <div className="flex flex-col max-h-[calc(60vh)]"> 
       {/* Header Card (fixed height, always visible) */}
       <div
         className="relative w-full h-64 flex items-end justify-start rounded-b-2xl overflow-hidden shadow-lg flex-shrink-0"

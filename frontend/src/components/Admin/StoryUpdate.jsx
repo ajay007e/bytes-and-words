@@ -73,14 +73,12 @@ export default function UpdateStory({data = {}, isUpdate = false}) {
 
   return (
       <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 p-8 max-w-7xl mx-auto w-full">
-        {/* Left: Form */}
         <form
           onSubmit={handleSubmit}
           className="flex flex-col space-y-6 bg-white rounded-xl shadow p-6"
         >
           {step === 1 && (
             <>
-              {/* Title */}
               <input
                 type="text"
                 placeholder="Title"
@@ -89,7 +87,6 @@ export default function UpdateStory({data = {}, isUpdate = false}) {
                 className="text-3xl font-bold w-full border-none outline-none placeholder-gray-400"
               />
 
-              {/* Description */}
               <input
                 type="text"
                 placeholder="Write a short description..."
@@ -98,7 +95,6 @@ export default function UpdateStory({data = {}, isUpdate = false}) {
                 className="w-full text-lg border-none outline-none placeholder-gray-400 resize-none"
               />
 
-              {/* Image URL */}
               <div>
                 <label className="text-sm font-medium text-gray-600">Cover Image</label>
                 <div className="flex items-center gap-3 mt-2">
@@ -109,21 +105,9 @@ export default function UpdateStory({data = {}, isUpdate = false}) {
                     onChange={(e) => handleChange("imageUrl", e.target.value)}
                     className="flex-1 p-3 border border-gray-300 rounded-lg"
                   />
-                  <div className="w-16 h-16 flex items-center justify-center border rounded-lg bg-gray-50 overflow-hidden">
-                    {form.imageUrl ? (
-                      <img
-                        src={form.imageUrl}
-                        alt="preview"
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <ImageIcon className="text-gray-400" />
-                    )}
-                  </div>
                 </div>
               </div>
 
-              {/* Categories */}
               <div>
                 <label className="text-sm font-medium text-gray-600">Categories</label>
                 <Select
@@ -135,7 +119,6 @@ export default function UpdateStory({data = {}, isUpdate = false}) {
                 />
               </div>
 
-              {/* Author */}
               <div>
                 <label className="text-sm font-medium text-gray-600">Author</label>
                 <CreatableSelect
@@ -147,7 +130,6 @@ export default function UpdateStory({data = {}, isUpdate = false}) {
                 />
               </div>
 
-              {/* Belongs to Series Toggle */}
               <div className="flex items-center gap-2">
                 <input
                   id="belongsToSeries"
@@ -164,7 +146,6 @@ export default function UpdateStory({data = {}, isUpdate = false}) {
                 </label>
               </div>
 
-              {/* Series dropdown – only shown if toggle is enabled */}
               {form.series !== null && (
                 <div>
                   <label className="text-sm font-medium text-gray-600">Series</label>
@@ -177,12 +158,11 @@ export default function UpdateStory({data = {}, isUpdate = false}) {
                 </div>
               )}
 
-              {/* Next button */}
               <div className="flex justify-end pt-4 border-t">
                 <button
                   type="button"
                   onClick={() => setStep(2)}
-                  className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700"
+                  className="cursor-pointer px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700"
                 >
                   Next
                 </button>
@@ -192,7 +172,6 @@ export default function UpdateStory({data = {}, isUpdate = false}) {
 
           {step === 2 && (
             <>
-              {/* Content */}
               <textarea
                 placeholder="Start writing your story..."
                 value={form.content}
@@ -200,18 +179,17 @@ export default function UpdateStory({data = {}, isUpdate = false}) {
                 className="w-full story-content p-3 border border-gray-300 rounded-lg min-h-8/10 text-gray-900"
               />
               <MarkdownSyntaxInfo/>
-              {/* Actions */}
               <div className="flex justify-between gap-3 pt-4 border-t">
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+                  className="px-4 py-2 cursor-pointer bg-gray-200 rounded-lg hover:bg-gray-300"
                 >
                   Back
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700"
+                  className="px-4 py-2 bg-pink-600 cursor-pointer text-white rounded-lg hover:bg-pink-700"
                 >
                   Publish Story
                 </button>
@@ -220,7 +198,6 @@ export default function UpdateStory({data = {}, isUpdate = false}) {
           )}
         </form>
 
-        {/* Right: Live Preview */}
         <div className="bg-white rounded-xl shadow p-6 overflow-y-auto">
           <h3 className="text-lg font-semibold mb-4 text-gray-800">
             Live Preview
