@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  overflow: hidden;
+}
+
+@layer utilities {
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+     /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+    }
+  }
+
+
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+.story-content::-webkit-scrollbar {
+  width: 8px;             /* width of the scrollbar */
+}
+
+.story-content::-webkit-scrollbar-track {
+  background: #f0f0f0;    /* background of the scrollbar track */
+  border-radius: 4px;
+}
+
+.story-content::-webkit-scrollbar-thumb {
+  background-color: #ec4899;  /* pink scrollbar thumb */
+  border-radius: 4px;
+  border: 2px solid #f0f0f0;  /* creates padding around thumb */
+}
+
+.story-content::-webkit-scrollbar-thumb:hover {
+  background-color: #db2777; /* darker on hover */
+}
+
+/* Firefox */
+.story-content {
+  scrollbar-width: thin;
+  scrollbar-color: #ec4899 #f0f0f0; /* thumb color | track color */
+}
